@@ -2,6 +2,55 @@
    CREATIVE DARK THEME - ADVANCED CSS
    ============================================ */
 
+/* Modam Font Faces */
+@font-face {
+    font-family: 'Modam';
+    src: url('../../woff2/ModamWeb-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Modam';
+    src: url('../../woff2/ModamWeb-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Modam';
+    src: url('../../woff2/ModamWeb-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Modam';
+    src: url('../../woff2/ModamWeb-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Modam';
+    src: url('../../woff2/ModamWeb-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Modam';
+    src: url('../../woff2/ModamWeb-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* CSS Variables */
 :root {
     /* Colors */
@@ -32,9 +81,9 @@
     --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
     
     /* Typography */
-    --font-primary: 'Inter', sans-serif;
-    --font-secondary: 'Playfair Display', serif;
-    --font-persian: 'Vazirmatn', sans-serif;
+    --font-primary: 'Modam', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-secondary: 'Modam', 'Times New Roman', serif;
+    --font-persian: 'Modam', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     
     /* Shadows */
     --shadow-sm: 0 2px 10px rgba(0, 212, 255, 0.1);
@@ -593,6 +642,11 @@ body.language-changing {
     align-items: center;
 }
 
+.hero-slide .container {
+    position: relative;
+    z-index: 5;
+}
+
 .hero-slide.active {
     opacity: 1;
     visibility: visible;
@@ -667,6 +721,8 @@ body.language-changing {
     transform: translateY(50px);
     opacity: 0;
     transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+    position: relative;
+    z-index: 10;
 }
 
 .hero-slide.active .slide-content {
@@ -705,6 +761,8 @@ body.language-changing {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 11;
 }
 
 .slide-btn-primary,
@@ -720,6 +778,8 @@ body.language-changing {
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    z-index: 12;
+    pointer-events: auto;
 }
 
 .slide-btn-primary {
@@ -885,12 +945,15 @@ body.language-changing {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .floating-shape {
     position: absolute;
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .shape-1 {
@@ -1656,6 +1719,120 @@ body.language-changing {
 
 .contact-form .form-control::placeholder {
     color: var(--text-muted);
+}
+
+/* New social contact cards */
+.contact-social-container {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-social-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 60%);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.contact-social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: var(--radius-lg);
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.05) 0%, rgba(10, 10, 10, 0.9) 60%);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    text-decoration: none;
+    color: var(--text-primary);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.contact-social-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 80%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(0, 212, 255, 0.5), rgba(255, 0, 110, 0.5));
+    opacity: 0;
+    transform: rotate(15deg);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.contact-social-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 212, 255, 0.25);
+    border-color: rgba(0, 212, 255, 0.6);
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.1) 0%, rgba(10, 10, 10, 0.9) 70%);
+}
+
+.contact-social-card:hover::before {
+    opacity: 0.25;
+}
+
+.contact-social-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: #fff;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+.contact-telegram .contact-social-icon {
+    background: radial-gradient(circle at 30% 30%, #00d4ff 0%, #0077b5 70%);
+}
+
+.contact-instagram .contact-social-icon {
+    background: radial-gradient(circle at 30% 30%, #feda75 0%, #d62976 40%, #962fbf 70%, #4f5bd5 100%);
+}
+
+.contact-whatsapp .contact-social-icon {
+    background: radial-gradient(circle at 30% 30%, #25d366 0%, #128c7e 70%);
+}
+
+.contact-social-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.contact-social-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 992px) {
+    .contact-social-container {
+        padding: 30px 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-social-card {
+        padding: 25px 16px;
+    }
 }
 
 .contact-info {

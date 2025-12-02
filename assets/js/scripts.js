@@ -14,100 +14,8 @@ let ticking = false;
 // ============================================
 // LANGUAGE SWITCHING FUNCTIONALITY
 // ============================================
-
-function changeLanguage(lang) {
-    // Prevent multiple clicks
-    if (document.querySelector('.language-loading')) {
-        return;
-    }
-    
-    // Close mobile menu if open
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-        navbarCollapse.classList.remove('show');
-        if (navbarToggler) {
-            navbarToggler.setAttribute('aria-expanded', 'false');
-        }
-    }
-    
-    // Show loading animation
-    showLanguageLoadingAnimation();
-    
-    // Add smooth transition class
-    document.body.classList.add('language-changing');
-    
-    // Stop any ongoing animations
-    if (window.gsap) {
-        gsap.globalTimeline.pause();
-    }
-    
-    // Change URL and reload page after animation
-    setTimeout(() => {
-        // Build the new URL properly
-        const currentUrl = window.location.href;
-        const baseUrl = window.location.origin + window.location.pathname;
-        
-        // Check if there are existing parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('lang', lang);
-        
-        // Navigate to new URL with force reload
-        window.location.replace(baseUrl + '?' + urlParams.toString());
-    }, 500);
-}
-
-function showLanguageLoadingAnimation() {
-    // Get current language to show appropriate loading text
-    const currentLang = document.documentElement.lang || 'en';
-    const loadingText = currentLang === 'fa' ? 'تغییر زبان...' : 'Changing Language...';
-    
-    // Create loading indicator
-    const loadingIndicator = document.createElement('div');
-    loadingIndicator.className = 'language-loading';
-    loadingIndicator.innerHTML = `
-        <div class="language-loading-content">
-            <div class="language-spinner"></div>
-            <span>${loadingText}</span>
-        </div>
-    `;
-    
-    // Add styles
-    loadingIndicator.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(10, 10, 10, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10002;
-        backdrop-filter: blur(10px);
-    `;
-    
-    const content = loadingIndicator.querySelector('.language-loading-content');
-    content.style.cssText = `
-        text-align: center;
-        color: #00d4ff;
-        font-size: 1.2rem;
-        font-weight: 600;
-    `;
-    
-    const spinner = loadingIndicator.querySelector('.language-spinner');
-    spinner.style.cssText = `
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(0, 212, 255, 0.3);
-        border-top: 3px solid #00d4ff;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 15px;
-    `;
-    
-    document.body.appendChild(loadingIndicator);
-}
+// Language switching is now handled by lang.js
+// This section is kept for compatibility but the actual function is in lang.js
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -337,20 +245,37 @@ function initializeWebsite() {
 function initializeLoading() {
     const loadingScreen = document.getElementById('loading-screen');
     
-    // Simulate loading time
-    setTimeout(() => {
+    if (!loadingScreen) {
+        // If no loading screen, just initialize entrance animations
+        initializeEntranceAnimations();
+        return;
+    }
+    
+    // Wait for page to be fully loaded
+    const hideLoading = () => {
         if (loadingScreen) {
             loadingScreen.classList.add('fade-out');
             
             // Remove loading screen after animation
             setTimeout(() => {
-                loadingScreen.style.display = 'none';
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
                 
                 // Initialize entrance animations
                 initializeEntranceAnimations();
             }, 800);
         }
-    }, 2000);
+    };
+    
+    // Check if page is already loaded
+    if (document.readyState === 'complete') {
+        setTimeout(hideLoading, 500);
+    } else {
+        window.addEventListener('load', () => {
+            setTimeout(hideLoading, 500);
+        });
+    }
 }
 
 // ============================================
