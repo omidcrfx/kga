@@ -2,23 +2,7 @@
    CREATIVE DARK THEME - ADVANCED CSS
    ============================================ */
 
-/* Modam Font Faces */
-@font-face {
-    font-family: 'Modam';
-    src: url('../../woff2/ModamWeb-ExtraLight.woff2') format('woff2');
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Modam';
-    src: url('../../woff2/ModamWeb-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
+/* Modam Font Faces - keep only used weights for performance */
 @font-face {
     font-family: 'Modam';
     src: url('../../woff2/ModamWeb-Regular.woff2') format('woff2');

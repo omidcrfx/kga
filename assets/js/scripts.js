@@ -19,16 +19,6 @@ let ticking = false;
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Fix icons first
-    fixFontAwesomeIcons();
-    
-    // Fix RTL icons if in RTL mode
-    setTimeout(() => {
-        if (document.body.classList.contains('rtl-body')) {
-            fixRTLIcons();
-        }
-    }, 500);
-    
     initializeWebsite();
 });
 
