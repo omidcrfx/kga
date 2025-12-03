@@ -2479,6 +2479,15 @@ body.language-changing {
         width: 45px;
         height: 45px;
     }
+
+    /* On mobile, hide background videos and use fallback images to reduce load */
+    .slide-video {
+        display: none;
+    }
+
+    .slide-image-fallback {
+        display: block;
+    }
 }
 
 @media (max-width: 576px) {

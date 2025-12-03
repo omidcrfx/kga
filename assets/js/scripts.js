@@ -241,30 +241,25 @@ function initializeLoading() {
         return;
     }
     
-    // Wait for page to be fully loaded
     const hideLoading = () => {
-        if (loadingScreen) {
-            loadingScreen.classList.add('fade-out');
-            
-            // Remove loading screen after animation
-            setTimeout(() => {
-                if (loadingScreen) {
-                    loadingScreen.style.display = 'none';
-                }
-                
-                // Initialize entrance animations
-                initializeEntranceAnimations();
-            }, 800);
-        }
+        if (!loadingScreen) return;
+        
+        loadingScreen.classList.add('fade-out');
+        
+        // Remove loading screen after fade animation
+        setTimeout(() => {
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+            initializeEntranceAnimations();
+        }, 800);
     };
     
-    // Check if page is already loaded
-    if (document.readyState === 'complete') {
-        setTimeout(hideLoading, 500);
+    // Prefer DOM readiness over full asset load to show page faster
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        hideLoading();
     } else {
-        window.addEventListener('load', () => {
-            setTimeout(hideLoading, 500);
-        });
+        document.addEventListener('DOMContentLoaded', hideLoading, { once: true });
     }
 }
 
