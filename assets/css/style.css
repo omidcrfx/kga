@@ -2,23 +2,7 @@
    CREATIVE DARK THEME - ADVANCED CSS
    ============================================ */
 
-/* Modam Font Faces */
-@font-face {
-    font-family: 'Modam';
-    src: url('../../woff2/ModamWeb-ExtraLight.woff2') format('woff2');
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Modam';
-    src: url('../../woff2/ModamWeb-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
+/* Modam Font Faces - keep only used weights for performance */
 @font-face {
     font-family: 'Modam';
     src: url('../../woff2/ModamWeb-Regular.woff2') format('woff2');
@@ -1744,6 +1728,40 @@ body.language-changing {
     pointer-events: none;
 }
 
+/* Unified contact box for social + info */
+.contact-box {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 40px 30px;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-box .contact-social-container {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+
+.contact-box .contact-info {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 0 0 30px;
+}
+
+@media (max-width: 992px) {
+    .contact-box {
+        padding: 30px 20px;
+    }
+    .contact-box .contact-info {
+        padding: 20px 0 0 0;
+    }
+}
+
 .contact-social-card {
     display: flex;
     flex-direction: column;
@@ -2494,6 +2512,15 @@ body.language-changing {
         right: 20px;
         width: 45px;
         height: 45px;
+    }
+
+    /* On mobile, hide background videos and use fallback images to reduce load */
+    .slide-video {
+        display: none;
+    }
+
+    .slide-image-fallback {
+        display: block;
     }
 }
 
